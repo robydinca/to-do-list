@@ -47,6 +47,8 @@ h2 {
     font-size: 16px;
     outline: none;
     background-color: #6279B8;
+    color: #F46197;
+    text-align: center;
 }
 
 input::placeholder {
@@ -72,9 +74,10 @@ input::placeholder {
 .task {
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
-.task label {
+.task li {
     list-style: none;
     color: #8EA4D2;
     font-size: 18px;

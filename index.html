@@ -11,16 +11,20 @@
     <title>Roby Tareas</title>
 </head>
 <body>
-    <h1>Tareas pendientes</h1>
-    <div>
-        <input type="text" name="task" id="task" placeholder="Que tienes que hacer?">
-        <button id="btn">Añadir</button>
+    <h1>Añadir Tareas <img src="img/logo.svg"></h1>
+    <div class="input">
+        <input type="text" name="task" id="task" placeholder="¿Que tienes que hacer?">
+        <button id="btn">+</button>
     </div>
-    <div id="tasks">
+
+    <h2>Tareas pendientes:</h2>
+
+    <div id="tasks" class="tasks">
         <ul>
-            <div>
-                <li>Comprar comida</li>
-                <button>Eliminar</button>
+            <div class="task">
+                <input type="checkbox" name="check" id="check">
+                <label for="check">Tarea 1</label>
+                <button>-</button>
             </div>
         </ul>
     </div>

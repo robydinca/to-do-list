@@ -17,6 +17,7 @@ function addTask() {
     taskDiv.id = 'task' + counter;
 
     const taskLi = document.createElement('li');
+    taskLi.className = 'taskText' + counter;
     taskLi.innerText = input.value;
 
     const taskButton = document.createElement('button');
@@ -27,8 +28,18 @@ function addTask() {
         contenedorPadre.remove();
       });
 
+    const editButton = document.createElement('button');
+    editButton.className = 'edit' + counter;
+    editButton.innerText = 'Edit';
+    editButton.addEventListener('click', function() {
+      const hermanoLi = this.previousSibling;
+      
+    });
+
+
     taskDiv.appendChild(taskLi);
     taskDiv.appendChild(taskButton);
+    taskDiv.appendChild(editButton);  
     tasks.appendChild(taskDiv);
 
     input.value = '';

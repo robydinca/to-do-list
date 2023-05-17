@@ -2,7 +2,7 @@
 
 <p align="center"><img src="https://socialify.git.ci/robydinca/to-do-list/image?font=Rokkitt&amp;language=1&amp;name=1&amp;owner=1&amp;pattern=Circuit%20Board&amp;stargazers=1&amp;theme=Dark" alt="project-image"></p>
 
-<p id="description">"The Vanilla To-Do List is a simple and intuitive web application built using vanilla JavaScript HTML and CSS. It provides users with an efficient way to manage their tasks and stay organized.</p>
+<p id="description">This Vanilla JavaScipt To-Do List is a simple and intuitive web application built using vanilla JavaScript HTML and CSS. It provides users with an efficient way to manage their tasks and stay organized.</p>
 
 <h2>🚀 Demo</h2>
 

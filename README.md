@@ -9,18 +9,6 @@
 [https://robydinca.github.io/to-do-list/](https://robydinca.github.io/to-do-list/)
 
   
-  
-<h2>🧐 Features</h2>
-
-Here're some of the project's best features:
-
-*   Manage yours tasks
-*   add task
-*   remove task
-*   more features in a nearly future
-
-  
-  
 <h2>💻 Built with</h2>
 
 Technologies used in the project:
@@ -28,3 +16,15 @@ Technologies used in the project:
 *   HTML
 *   CSS
 *   JavaScript
+  
+  
+<h2>🧐 Features</h2>
+
+Here're some of the project's best features:
+
+*   Manage yours tasks
+*   Add task
+*   Remove task
+*   More features in a nearly future
+
+  

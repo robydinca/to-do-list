@@ -65,7 +65,7 @@ function addTaskPendt() {
 
     const taskLi = document.createElement('li');
     taskLi.className = 'taskText' + counter;
-    taskLi.innerText = input.value;
+    taskLi.innerText = counter + ". " + input.value;
 
     const taskButton = document.createElement('button');
     taskButton.className = 'remove' + counter;
@@ -124,17 +124,10 @@ function addTaskPendt() {
         isTaskAdded = false; // Habilitar la opción de agregar una nueva tarea
       });
   
-      const startTaskButton = document.createElement('button');
-      startTaskButton.className = 'startTask';
-      startTaskButton.innerText = '>';
-      startTaskButton.addEventListener('click', function() {
-        // Aquí puedes agregar la lógica para comenzar la tarea
-      });
+
   
       actualTaskDiv.appendChild(actualTaskLi);
       actualTaskDiv.appendChild(actualTaskButton);
-      actualTaskDiv.appendChild(startTaskButton);
-  
       actualTasksDiv.appendChild(actualTaskDiv);
   
       // Guardamos la tarea actual en la variable y deshabilitamos la opción de agregar una nueva tarea

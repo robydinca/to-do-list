@@ -115,12 +115,15 @@ function addTaskPendt() {
       const taskId = parseInt(contenedorPadre.id.replace('task', '')); // Obtiene el valor de counter desde el ID
       const taskText = contenedorPadre.getElementsByClassName('taskText' + taskId)[0];
       const inputEdit = document.createElement('input');
+      inputEdit.className = 'inputEdit';
       inputEdit.type = 'text';
       inputEdit.value = taskText.innerText;
       taskText.innerText = '';
       taskText.appendChild(inputEdit);
       const saveButton = document.createElement('button');
-      saveButton.innerText = 'Guardar';
+      saveButton.className = 'saveButton';
+      saveButton.id = 'saveButton';
+      saveButton.innerText = 'Save';
       saveButton.addEventListener('click', function() {
           taskText.innerText = inputEdit.value;
           saveButton.remove();

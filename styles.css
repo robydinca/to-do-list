@@ -125,13 +125,17 @@ input::placeholder {
 
 #time {
     display: flex;
+    align-items: center;
 }
 
 #countdown {
     font-size: 32px;
     font-weight: bold;
-    color: #F46197;
+    color:#6279B8;
     margin-left: 40px;
+    background-color: #8EA4D2;
+    border-radius: 30px;
+    padding: 10px;
 }
 
 #start, #pause {
@@ -146,4 +150,22 @@ input::placeholder {
     cursor: pointer;
     outline: none;
     margin-left: 20px;
+}
+
+#timeBreak{
+    display: none;
+    justify-content: center;
+}
+
+#timeBreak > #countdownBreak {
+    width: 200px;
+    height: 100px;
+    font-size: 60px;
+    margin: 10px;
+    text-align:center;
+    padding-top:25px; 
+    border-radius: 80px;
+    background-color: #8EA4D2;
+    color:#6279B8;
+    font-weight: 500;
 }

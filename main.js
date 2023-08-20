@@ -4,15 +4,19 @@ const addButton = document.getElementById('add');
 const removeButtons = document.getElementsByClassName('remove');
 const addButtons = document.getElementsByClassName('task')
 const actualTasksDiv = document.getElementById('actualTask');
+const countdownEl = document.getElementById('countdown');
+const countdownBreakEl = document.getElementById('countdownBreak')
 const startButton = document.getElementById('start');
 const pauseButton = document.getElementById('pause');
+const timeBreak = document.getElementById('timeBreak')
+const timer = document.getElementById('time')
 let counter = 0;
 let currentActualTask = null; // Variable para almacenar la tarea actual
 let isTaskAdded = false; // Bandera para rastrear si hay una tarea actual
 
-const startingMinutes = 25;
+const startingMinutes = 0.05;
+const breakMinutes = 0.05;
 let time = startingMinutes * 60;
-const countdownEl = document.getElementById('countdown');
 let interval;
 
 startButton.addEventListener('click', startCountdown);
@@ -37,6 +41,12 @@ function updateCountdown() {
     startButton.disabled = false;
     pauseButton.disabled = true;
     alert("Tomate un breve descando, to tu polla ere un makina illo");
+    timeBreak.style.display = "flex";
+    timer.style.display = "none";
+    const minutesB = Math.floor(timeBreak/60);
+    let secondsB = timeBreak % 60;
+    secondsB = secondsB < 10 ? '0' + seconds : seconds;
+    countdownBreakEl.innerHTML =`${minutesB}:${secondsB}`;
     resetCountdown();
     return;
   }

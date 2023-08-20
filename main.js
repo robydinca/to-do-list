@@ -8,24 +8,32 @@ const countdownEl = document.getElementById('countdown');
 const countdownBreakEl = document.getElementById('countdownBreak')
 const startButton = document.getElementById('start');
 const pauseButton = document.getElementById('pause');
+const startBreakButton = document.getElementById('startBreak');
 const timeBreak = document.getElementById('timeBreak')
 const timer = document.getElementById('time')
 let counter = 0;
 let currentActualTask = null; // Variable para almacenar la tarea actual
 let isTaskAdded = false; // Bandera para rastrear si hay una tarea actual
 
-const startingMinutes = 0.05;
-const breakMinutes = 0.05;
+const startingMinutes = 25;
+const breakMinutes = 5;
 let time = startingMinutes * 60;
+let breakTime = breakMinutes * 60;
 let interval;
+let isBreakActive = false;
 
 startButton.addEventListener('click', startCountdown);
 pauseButton.addEventListener('click', pauseCountdown);
+startBreakButton.addEventListener('click', startBreakCountdown);
 
 function startCountdown() {
-  interval = setInterval(updateCountdown, 1000);
-  startButton.disabled = true;
-  pauseButton.disabled = false;
+    interval = setInterval(updateCountdown, 1000);
+    startButton.disabled = true;
+    pauseButton.disabled = false;
+}
+
+function startBreakCountdown() {
+  interval = setInterval(updateBreakCountdown, 1000);
 }
 
 function pauseCountdown() {
@@ -35,19 +43,32 @@ function pauseCountdown() {
 
 }
 
+function updateBreakCountdown() {
+  if (breakTime <= 0) {
+    clearInterval(interval);
+    timeBreak.style.display = "none";
+    timer.style.display = "flex";
+    countdownBreakEl.innerHTML = `${breakMinutes}:00`;
+    return;
+  }
+
+  const minutesB = Math.floor(breakTime / 60);
+  let secondsB = breakTime % 60;
+  secondsB = secondsB < 10 ? '0' + secondsB : secondsB;
+  countdownBreakEl.innerHTML = `${minutesB}:${secondsB}`;
+  breakTime--;
+
+}
+
 function updateCountdown() {
   if (time <= 0) {
     clearInterval(interval);
     startButton.disabled = false;
     pauseButton.disabled = true;
     alert("Tomate un breve descando, to tu polla ere un makina illo");
-    timeBreak.style.display = "flex";
-    timer.style.display = "none";
-    const minutesB = Math.floor(timeBreak/60);
-    let secondsB = timeBreak % 60;
-    secondsB = secondsB < 10 ? '0' + seconds : seconds;
-    countdownBreakEl.innerHTML =`${minutesB}:${secondsB}`;
     resetCountdown();
+    timeBreak.style.display = "flex";
+    timer.style.display = "none"; 
     return;
   }
 

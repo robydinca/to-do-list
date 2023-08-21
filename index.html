@@ -8,12 +8,19 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;300;400;500;600;700&display=swap" rel="stylesheet">
-    <title>Roby Tareas</title>
+    <title>Roby To-Do List</title>
 </head>
 <body>
-    </div>
     <h1>Pomodoro To-do List <img src="img/logo.svg"></h1>
+    
+    <div class="containerHours" id="containerHours">
+    </div>
+    
     <div class="input">
+        <input type="number" name="inputHours" id="inputHours" placeholder="¿Cuantas horas quieres planificar?">
+        <button id="addHours">✓</button>
+    </div>
+    <div class="input" id="inputTaskDiv">
         <input type="text" name="inputTask" id="inputTask" placeholder="¿Que tienes que hacer?">
         <button id="add">+</button>
     </div>

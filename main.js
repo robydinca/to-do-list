@@ -10,17 +10,36 @@ const startButton = document.getElementById('start');
 const pauseButton = document.getElementById('pause');
 const startBreakButton = document.getElementById('startBreak');
 const timeBreak = document.getElementById('timeBreak')
-const timer = document.getElementById('time')
+const timer = document.getElementById('time');
+const inputHours = document.getElementById('inputHours');
+const buttonHours = document.getElementById('addHours');
+const inputTaskDiv = document.getElementById('inputTaskDiv');
+
 let counter = 0;
 let currentActualTask = null; // Variable para almacenar la tarea actual
 let isTaskAdded = false; // Bandera para rastrear si hay una tarea actual
-
 const startingMinutes = 25;
 const breakMinutes = 5;
 let time = startingMinutes * 60;
 let breakTime = breakMinutes * 60;
 let interval;
 let isBreakActive = false;
+
+
+buttonHours.addEventListener('click', addHours);
+
+function addHours() {
+  const hours = parseInt(inputHours.value);
+  const hoursElement = document.createElement('div');
+  hoursElement.className = 'hoursAmount';
+  hoursElement.innerText = hours;
+  const containerHours = document.getElementById('containerHours');
+  containerHours.appendChild(hoursElement);
+  inputHours.style.display = "none";
+  buttonHours.style.display = "none";
+  inputTaskDiv.style.display = "flex";
+}
+
 
 startButton.addEventListener('click', startCountdown);
 pauseButton.addEventListener('click', pauseCountdown);
@@ -90,22 +109,34 @@ addButton.addEventListener('click', addTaskPendt);
 
 
 function addTaskPendt() {
+  const hoursElement = document.querySelector('.hoursAmount');
+  const currentHours = hoursElement.innerText;
+  // Restar la mitad al número de horas restantes
+  if (currentHours > 0) {
+    const updatedHours = currentHours -0.5 ; // Restar 0.5 horas, asegurándose de que no sea negativo
+    hoursElement.innerText = updatedHours;
+
+
     const taskDiv = document.createElement('div');
     taskDiv.className = 'task';
     taskDiv.id = 'task' + counter;
-
+  
     const taskLi = document.createElement('li');
     taskLi.className = 'taskText' + counter;
     taskLi.innerText = counter + ". " + input.value;
-
+  
     const taskButton = document.createElement('button');
     taskButton.className = 'remove' + counter;
     taskButton.innerText = '-';
     taskButton.addEventListener('click', function() {
         const contenedorPadre = this.closest('.task');
         contenedorPadre.remove();
+        const hoursElement = document.querySelector('.hoursAmount');
+        const currentHours = parseFloat(hoursElement.innerText); // Usamos parseFloat porque las horas podrían tener decimales
+        const updatedHours = currentHours + 0.5;
+        hoursElement.innerText = updatedHours;
       });
-
+  
     const editButton = document.createElement('button');
     editButton.className = 'edit' + counter;
     editButton.innerText = '*';
@@ -131,11 +162,10 @@ function addTaskPendt() {
       });
       taskText.appendChild(saveButton);
   });
-
   const addToActualButton = document.createElement('button');
   addToActualButton.className = 'addToActual' + counter;
   addToActualButton.innerText = '^';
-
+  
   addToActualButton.addEventListener('click', function() {
     if (!isTaskAdded) {
       const contenedorPadre = this.closest('.task');
@@ -158,7 +188,7 @@ function addTaskPendt() {
         isTaskAdded = false; // Habilitar la opción de agregar una nueva tarea
       });
   
-
+  
   
       actualTaskDiv.appendChild(actualTaskLi);
       actualTaskDiv.appendChild(actualTaskButton);
@@ -169,17 +199,23 @@ function addTaskPendt() {
       isTaskAdded = true;
     }
   });
-
-
-
+  
+  
+  
     taskDiv.appendChild(taskLi);
     taskDiv.appendChild(taskButton);
     taskDiv.appendChild(editButton);
     taskDiv.appendChild(addToActualButton);
     tasks.appendChild(taskDiv);
-
+  
     input.value = '';
     counter++;
+
+  }
+
+  else {
+    alert("No tienes horas suficientes para agregar más tareas");
+  }
 
 }
 

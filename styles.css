@@ -119,6 +119,7 @@ input::placeholder {
 .task {
     display: flex;
     align-items: center;
+    cursor: move;
 }
 
 .actualTaskContainer {
@@ -248,3 +249,17 @@ input::placeholder {
     border-radius: 30px;
     color:#6279B8;
 }
+
+/*
+Clases para los estilos de los diferentes estados del drag and drop
+*/
+
+.task li, .selected {
+    transform: scale(1.015);
+}
+
+.drag {
+    opacity: 0;
+}
+
+/*------------------------------------------------------*/

@@ -14,6 +14,7 @@ const timer = document.getElementById('time');
 const inputHours = document.getElementById('inputHours');
 const buttonHours = document.getElementById('addHours');
 const inputTaskDiv = document.getElementById('inputTaskDiv');
+const listTasks = document.getElementById('SectionTasks');
 
 let counter = 0;
 let currentActualTask = null; // Variable para almacenar la tarea actual
@@ -25,8 +26,11 @@ let breakTime = breakMinutes * 60;
 let interval;
 let isBreakActive = false;
 
-
-buttonHours.addEventListener('click', addHours);
+Sortable.create(listTasks, {
+  animation: 150,
+  chosenClass: "selected",
+  dragClass: "drag",
+});
 
 function addHours() {
   const hours = parseInt(inputHours.value);
@@ -41,6 +45,7 @@ function addHours() {
 }
 
 
+buttonHours.addEventListener('click', addHours);
 startButton.addEventListener('click', startCountdown);
 pauseButton.addEventListener('click', pauseCountdown);
 startBreakButton.addEventListener('click', startBreakCountdown);
@@ -123,7 +128,7 @@ function addTaskPendt() {
   
     const taskLi = document.createElement('li');
     taskLi.className = 'taskText' + counter;
-    taskLi.innerText = counter + ". " + input.value;
+    taskLi.innerText = input.value;
   
     const taskButton = document.createElement('button');
     taskButton.className = 'remove' + counter;

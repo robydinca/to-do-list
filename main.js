@@ -112,117 +112,155 @@ function resetCountdown() {
 
 addButton.addEventListener('click', addTaskPendt);
 
-
-function addTaskPendt() {
-  const hoursElement = document.querySelector('.hoursAmount');
-  const currentHours = hoursElement.innerText;
-  // Restar la mitad al número de horas restantes
+function subtractHours(hoursElement) {
+  const currentHours = parseFloat(hoursElement.innerText);
   if (currentHours > 0) {
-    const updatedHours = currentHours -0.5 ; // Restar 0.5 horas, asegurándose de que no sea negativo
+    const updatedHours = currentHours - 0.5;
     hoursElement.innerText = updatedHours;
+    return true;
+  }
+  return false;
+}
 
+function createTaskElement(inputValue, taskId) {
+  const taskDiv = document.createElement('div');
+  taskDiv.className = 'task';
+  taskDiv.id = 'task' + taskId;
 
-    const taskDiv = document.createElement('div');
-    taskDiv.className = 'task';
-    taskDiv.id = 'task' + counter;
-  
-    const taskLi = document.createElement('li');
-    taskLi.className = 'taskText' + counter;
-    taskLi.innerText = input.value;
-  
-    const taskButton = document.createElement('button');
-    taskButton.className = 'remove' + counter;
-    taskButton.innerText = '-';
-    taskButton.addEventListener('click', function() {
-        const contenedorPadre = this.closest('.task');
-        contenedorPadre.remove();
-        const hoursElement = document.querySelector('.hoursAmount');
-        const currentHours = parseFloat(hoursElement.innerText); // Usamos parseFloat porque las horas podrían tener decimales
-        const updatedHours = currentHours + 0.5;
-        hoursElement.innerText = updatedHours;
-      });
-  
-    const editButton = document.createElement('button');
-    editButton.className = 'edit' + counter;
-    editButton.innerText = '*';
-    
-    editButton.addEventListener('click', function() {
-      const contenedorPadre = this.closest('.task');
-      const taskId = parseInt(contenedorPadre.id.replace('task', '')); // Obtiene el valor de counter desde el ID
-      const taskText = contenedorPadre.getElementsByClassName('taskText' + taskId)[0];
-      const inputEdit = document.createElement('input');
-      inputEdit.className = 'inputEdit';
-      inputEdit.type = 'text';
-      inputEdit.value = taskText.innerText;
-      taskText.innerText = '';
-      taskText.appendChild(inputEdit);
-      const saveButton = document.createElement('button');
-      saveButton.className = 'saveButton';
-      saveButton.id = 'saveButton';
-      saveButton.innerText = 'Save';
-      saveButton.addEventListener('click', function() {
-          taskText.innerText = inputEdit.value;
-          saveButton.remove();
-          inputEdit.remove();
-      });
-      taskText.appendChild(saveButton);
+  const taskLi = document.createElement('li');
+  taskLi.className = 'taskText' + taskId;
+  taskLi.innerText = inputValue;
+
+  return { taskDiv, taskLi };
+}
+
+function createTaskButton(counter, callback) {
+  const taskButton = document.createElement('button');
+  taskButton.className = 'remove' + counter;
+  taskButton.innerText = '-';
+  taskButton.addEventListener('click', callback);
+
+  return taskButton;
+}
+
+function createEditButton(counter, callback) {
+  const editButton = document.createElement('button');
+  editButton.className = 'edit' + counter;
+  editButton.innerText = '*';
+  editButton.addEventListener('click', callback);
+
+  return editButton;
+}
+
+function createSaveButton(taskId) {
+  const saveButton = document.createElement('button');
+  saveButton.className = 'saveButton';
+  saveButton.id = 'saveButton';
+  saveButton.innerText = 'Save';
+  saveButton.addEventListener('click', function () {
+    const taskText = this.closest('.taskText' + taskId);
+    taskText.innerText = inputEdit.value;
+    saveButton.remove();
+    inputEdit.remove();
   });
+
+  return saveButton;
+}
+
+function createAddToActualButton(counter, callback) {
   const addToActualButton = document.createElement('button');
   addToActualButton.className = 'addToActual' + counter;
   addToActualButton.innerText = '^';
-  
-  addToActualButton.addEventListener('click', function() {
-    if (!isTaskAdded) {
-      const contenedorPadre = this.closest('.task');
-      const taskId = parseInt(contenedorPadre.id.replace('task', '')); // Obtiene el valor de counter desde el ID
-      const taskText = contenedorPadre.getElementsByClassName('taskText' + taskId)[0];
-  
-      const actualTaskDiv = document.createElement('div');
-      actualTaskDiv.className = 'actualTaskContainer';
-  
-      const actualTaskLi = document.createElement('li');
-      actualTaskLi.className = 'actualTaskText';
-      actualTaskLi.innerText = taskText.innerText;
-  
-      const actualTaskButton = document.createElement('button');
-      actualTaskButton.className = 'removeActual';
-      actualTaskButton.innerText = '-';
-      actualTaskButton.addEventListener('click', function() {
-        const contenedorPadre = this.closest('.actualTaskContainer');
-        contenedorPadre.remove();
-        isTaskAdded = false; // Habilitar la opción de agregar una nueva tarea
-      });
-  
-  
-  
-      actualTaskDiv.appendChild(actualTaskLi);
-      actualTaskDiv.appendChild(actualTaskButton);
-      actualTasksDiv.appendChild(actualTaskDiv);
-  
-      // Guardamos la tarea actual en la variable y deshabilitamos la opción de agregar una nueva tarea
-      currentActualTask = actualTaskDiv;
-      isTaskAdded = true;
-    }
-  });
-  
-  
-  
-    taskDiv.appendChild(taskLi);
-    taskDiv.appendChild(taskButton);
-    taskDiv.appendChild(editButton);
-    taskDiv.appendChild(addToActualButton);
-    tasks.appendChild(taskDiv);
-  
-    input.value = '';
-    counter++;
+  addToActualButton.addEventListener('click', callback);
 
-  }
-
-  else {
-    alert("No tienes horas suficientes para agregar más tareas");
-  }
-
+  return addToActualButton;
 }
 
+function handleTaskButtonClick() {
+  const contenedorPadre = this.closest('.task');
+  contenedorPadre.remove();
+  const hoursElement = document.querySelector('.hoursAmount');
+  subtractHours(hoursElement);
+}
 
+function handleEditButtonClick() {
+  const contenedorPadre = this.closest('.task');
+  const taskId = parseInt(contenedorPadre.id.replace('task', ''));
+  const taskText = contenedorPadre.getElementsByClassName('taskText' + taskId)[0];
+  const inputEdit = document.createElement('input');
+  inputEdit.className = 'inputEdit';
+  inputEdit.type = 'text';
+  inputEdit.value = taskText.innerText;
+  taskText.innerText = '';
+  taskText.appendChild(inputEdit);
 
+  const saveButton = createSaveButton(taskId);
+  taskText.appendChild(saveButton);
+}
+
+function handleAddToActualButtonClick() {
+  if (!isTaskAdded) {
+    const contenedorPadre = this.closest('.task');
+    const taskId = parseInt(contenedorPadre.id.replace('task', ''));
+    const taskText = contenedorPadre.getElementsByClassName('taskText' + taskId)[0];
+
+    const actualTaskDiv = createActualTaskElement(taskText.innerText);
+
+    actualTasksDiv.appendChild(actualTaskDiv);
+    currentActualTask = actualTaskDiv;
+    isTaskAdded = true;
+  }
+}
+
+function createActualTaskElement(taskText) {
+  const actualTaskDiv = document.createElement('div');
+  actualTaskDiv.className = 'actualTaskContainer';
+
+  const actualTaskLi = document.createElement('li');
+  actualTaskLi.className = 'actualTaskText';
+  actualTaskLi.innerText = taskText;
+
+  const actualTaskButton = document.createElement('button');
+  actualTaskButton.className = 'removeActual';
+  actualTaskButton.innerText = '-';
+  actualTaskButton.addEventListener('click', function () {
+    const contenedorPadre = this.closest('.actualTaskContainer');
+    contenedorPadre.remove();
+    isTaskAdded = false;
+  });
+
+  actualTaskDiv.appendChild(actualTaskLi);
+  actualTaskDiv.appendChild(actualTaskButton);
+
+  return actualTaskDiv;
+}
+
+function addTaskPendt() {
+  const hoursElement = document.querySelector('.hoursAmount');
+  if (subtractHours(hoursElement)) {
+    const taskElement = createTaskElement(input.value, counter);
+    const taskButton = createTaskButton(counter, handleTaskButtonClick);
+    const editButton = createEditButton(counter, handleEditButtonClick);
+    const addToActualButton = createAddToActualButton(counter, handleAddToActualButtonClick);
+
+    taskElement.taskDiv.appendChild(taskElement.taskLi);
+    taskElement.taskDiv.appendChild(taskButton);
+    taskElement.taskDiv.appendChild(editButton);
+    taskElement.taskDiv.appendChild(addToActualButton);
+    tasks.appendChild(taskElement.taskDiv);
+
+    input.value = '';
+    counter++;
+  } else {
+    alert("No tienes horas suficientes para agregar más tareas");
+  }
+}
+
+function setupEventListeners() {
+  addButton.addEventListener('click', addTaskPendt);
+}
+
+function initializeApp() {
+  initializeElements();
+  setup
+}
